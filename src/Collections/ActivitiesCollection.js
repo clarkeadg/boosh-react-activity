@@ -22,10 +22,11 @@ let pageId = 1;
 class ActivitiesCollection extends React.Component {
 
   getData(pageNumber) {
-    let { user_id, item_type, item_id } = this.props;
+    let { user_id, item_type, item_id, per_page } = this.props;
     let Meta = {
       query: {
-        page: pageNumber
+        page: pageNumber,
+        per_page: per_page || 8
       },
       path: this.props.path || "/activity/"
     }
@@ -69,18 +70,36 @@ class ActivitiesCollection extends React.Component {
   renderActivities(loading, activities) {
     let { user_id } = this.props;
 
-    return (
-      <Row upOnSmall={1}>
+    if(this.props.viewType && this.props.viewType == 'list') {
+      return (
+        <Row upOnSmall={1}>
+          {activities.items.map((item, id) => {
+            return (
+              <Column key={id}>
+                <Activity activity={item} user_id={user_id} meta={true}/>
+              </Column>
+            )
+          })}
+          { /* this.renderLoading(loading) */ }
+        </Row>
+      )
+    }
+
+    let size = this.props.size || 4;
+
+     return (
+      <Row upOnSmall={2} upOnMedium={4} upOnLarge={size}>
         {activities.items.map((item, id) => {
           return (
             <Column key={id}>
-              <Activity activity={item} user_id={user_id}/>
+              <Activity activity={item} user_id={user_id} meta={false}/>
             </Column>
           )
         })}
-        { /* this.renderLoading(loading) */ }
       </Row>
     )
+
+
   }
 
   render() {

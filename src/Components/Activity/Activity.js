@@ -36,7 +36,7 @@ class Activity extends React.Component {
 
   render() {
 
-    let { activity, user_id } = this.props;
+    let { activity, user_id, meta } = this.props;
 
     //console.log('ACTIVITY', activity)
 
@@ -45,14 +45,14 @@ class Activity extends React.Component {
         if (user_id) {
           return (
             <div className={'activity activity-profile_view'} >
-              <GetUser user_id={activity.item_id} meta={true}/>
+              <GetUser user_id={activity.item_id} meta={meta}/>
               { /* <span className="copy">you viewed profile.</span> */ }
             </div>
           )
         }
         return (
           <div className={'activity activity-profile_view'} >
-            <GetUser user_id={activity.user_id} meta={true}/>
+            <GetUser user_id={activity.user_id} meta={meta}/>
             { /* <span className="copy">viewed your profile.</span> */ }
           </div>
         )
@@ -66,12 +66,14 @@ class Activity extends React.Component {
 
 Activity.propTypes = {
   me: React.PropTypes.object,
-  time: React.PropTypes.string
+  time: React.PropTypes.string,
+  meta: eact.PropTypes.bool
 }
 
 Activity.defaultProps = {
   me: {},
-  time: null
+  time: null,
+  meta: true
 }
 
 const mapStateToProps = (state, props) => {
