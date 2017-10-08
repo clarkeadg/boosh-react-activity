@@ -67,7 +67,7 @@ class Activity extends React.Component {
 Activity.propTypes = {
   me: React.PropTypes.object,
   time: React.PropTypes.string,
-  meta: eact.PropTypes.bool
+  meta: React.PropTypes.bool
 }
 
 Activity.defaultProps = {
